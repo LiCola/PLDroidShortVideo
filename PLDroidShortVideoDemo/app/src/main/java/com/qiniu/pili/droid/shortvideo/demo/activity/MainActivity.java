@@ -30,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
     private Spinner mEncodingBitrateLevelSpinner;
     private Spinner mAudioChannelNumSpinner;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

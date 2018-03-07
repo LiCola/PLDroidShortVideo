@@ -50,6 +50,7 @@ public class ArRecordActivity extends AppCompatActivity implements View.OnClickL
     private String recorderResources;
     private String unpackerPath;
 
+
     private String uid = "";
     static String key = "zYnUPaCAWtl4WDH3qLu290KRFA7gCCU2iyI9127chA6gvLQyr9CUlawIjMdC1OXxLwsUWvNN2zI2XIElU8AP2QitdZ4WFAfoA8DdJbos2FL4FnPKiSjX52Avh524oxXLF8iOuZXg4YFSQWgKrhkLsJs8K8NxsEdoWh2UCuRsONxjHAdDX0V871RQMydPAyFzx4L0fTUe";
     static String serverAddr = "http://copapi.easyar.cn";
