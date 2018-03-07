@@ -5,10 +5,12 @@ package com.qiniu.pili.droid.shortvideo.demo.model;
  */
 
 public class VideoModel {
+  public String title;
   public String cover;
-  private String url;
+  public String url;
 
-  public VideoModel(String cover, String url) {
+  public VideoModel(String title, String cover, String url) {
+    this.title = title;
     this.cover = cover;
     this.url = url;
   }

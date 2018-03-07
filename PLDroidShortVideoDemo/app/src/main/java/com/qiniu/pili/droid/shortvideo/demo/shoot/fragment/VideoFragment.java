@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.qiniu.pili.droid.shortvideo.demo.R;
+import com.qiniu.pili.droid.shortvideo.demo.model.SourceManager;
 import com.qiniu.pili.droid.shortvideo.demo.model.VideoModel;
 import com.qiniu.pili.droid.shortvideo.demo.view.VideoRecyclerViewAdapter;
 import java.util.ArrayList;
@@ -26,6 +27,8 @@ public class VideoFragment extends Fragment {
   private static final int mColumnCount = 2;
   private OnListFragmentInteractionListener mListener;
 
+  private VideoRecyclerViewAdapter adapter;
+
   /**
    * Mandatory empty constructor for the fragment manager to instantiate the
    * fragment (e.g. upon screen orientation changes).
@@ -38,6 +41,24 @@ public class VideoFragment extends Fragment {
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
+  }
+
+  @Override
+  public void onResume() {
+    super.onResume();
+
+    List<String> sourceUrl = SourceManager.getInstance().getSource(getContext());
+
+    List<VideoModel> videoModels = new ArrayList<>(sourceUrl.size());
+    int index = 0;
+
+    for (String item : sourceUrl) {
+      videoModels.add(
+          new VideoModel("初始视频" + index, "封面图片",
+              item));
+      index++;
+    }
+    adapter.setValues(videoModels);
 
   }
 
@@ -45,10 +66,6 @@ public class VideoFragment extends Fragment {
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.fragment_video_grid, container, false);
-
-    List<VideoModel> videoModels = new ArrayList<>();
-    videoModels.add(new VideoModel("空白1","播放地址"));
-    videoModels.add(new VideoModel("空白2","播放地址"));
 
     // Set the adapter
     if (view instanceof RecyclerView) {
@@ -59,7 +76,8 @@ public class VideoFragment extends Fragment {
       } else {
         recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
       }
-      recyclerView.setAdapter(new VideoRecyclerViewAdapter(videoModels, mListener));
+      adapter = new VideoRecyclerViewAdapter(mListener);
+      recyclerView.setAdapter(adapter);
     }
     return view;
   }

@@ -94,16 +94,16 @@
 
 
     <activity
-      android:name=".PLMediaPlayerActivity"
+      android:name=".play.PLMediaPlayerActivity"
       android:theme="@style/AppThemeFullscreen" />
-    <activity android:name=".PLAudioPlayerActivity" />
+    <activity android:name=".play.PLAudioPlayerActivity" />
     <activity
-      android:name=".PLVideoViewActivity"
+      android:name=".play.PLVideoViewActivity"
       android:theme="@style/AppThemeFullscreen" />
     <activity
-      android:name=".PLVideoTextureActivity"
+      android:name=".play.PLVideoTextureActivity"
       android:theme="@style/AppThemeFullscreen" />
-    <activity android:name=".PLVideoListActivity"/>
+    <activity android:name=".play.PLVideoListActivity"/>
 
   </application>
 

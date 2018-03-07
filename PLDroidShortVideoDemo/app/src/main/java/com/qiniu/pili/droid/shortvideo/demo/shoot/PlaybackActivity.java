@@ -29,6 +29,7 @@ import com.qiniu.pili.droid.shortvideo.PLUploadProgressListener;
 import com.qiniu.pili.droid.shortvideo.PLUploadResultListener;
 import com.qiniu.pili.droid.shortvideo.PLUploadSetting;
 import com.qiniu.pili.droid.shortvideo.demo.R;
+import com.qiniu.pili.droid.shortvideo.demo.model.SourceManager;
 import com.qiniu.pili.droid.shortvideo.demo.utils.Config;
 import com.qiniu.pili.droid.shortvideo.demo.utils.ToastUtils;
 import com.qiniu.pili.droid.shortvideo.demo.view.MediaController;
@@ -153,9 +154,12 @@ public class PlaybackActivity extends Activity implements
                 @Override
                 public void run() {
                     ToastUtils.l(PlaybackActivity.this, "文件上传成功，" + filePath + "已复制到粘贴板");
+                    SourceManager.getInstance().putSource(PlaybackActivity.this,filePath);
+                    finish();
                 }
             });
             mUploadBtn.setVisibility(View.INVISIBLE);
+
         } catch (JSONException e) {
             e.printStackTrace();
         }

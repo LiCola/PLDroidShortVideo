@@ -7,8 +7,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.qiniu.pili.droid.shortvideo.demo.R;
-import com.qiniu.pili.droid.shortvideo.demo.shoot.fragment.VideoFragment.OnListFragmentInteractionListener;
 import com.qiniu.pili.droid.shortvideo.demo.model.VideoModel;
+import com.qiniu.pili.droid.shortvideo.demo.shoot.fragment.VideoFragment.OnListFragmentInteractionListener;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -16,13 +18,17 @@ import java.util.List;
 public class VideoRecyclerViewAdapter extends
     RecyclerView.Adapter<VideoRecyclerViewAdapter.ViewHolder> {
 
-  private final List<VideoModel> mValues;
+  private List<VideoModel> mValues= Collections.EMPTY_LIST;
   private final OnListFragmentInteractionListener mListener;
 
-  public VideoRecyclerViewAdapter(List<VideoModel> items,
+  public VideoRecyclerViewAdapter(
       OnListFragmentInteractionListener listener) {
-    mValues = items;
     mListener = listener;
+  }
+
+  public void setValues(List<VideoModel> items) {
+    mValues = items;
+    this.notifyDataSetChanged();
   }
 
   @Override
@@ -35,8 +41,7 @@ public class VideoRecyclerViewAdapter extends
   @Override
   public void onBindViewHolder(final ViewHolder holder, int position) {
     holder.mItem = mValues.get(position);
-//    holder.mIdView.setText(mValues.get(position).id);
-//    holder.mContentView.setText(mValues.get(position).content);
+    holder.txtTitle.setText(mValues.get(position).title);
 
     holder.mView.setOnClickListener(new View.OnClickListener() {
       @Override
