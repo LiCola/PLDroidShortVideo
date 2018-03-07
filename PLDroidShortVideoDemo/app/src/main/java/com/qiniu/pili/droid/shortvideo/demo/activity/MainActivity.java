@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
     private Spinner mAudioChannelNumSpinner;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

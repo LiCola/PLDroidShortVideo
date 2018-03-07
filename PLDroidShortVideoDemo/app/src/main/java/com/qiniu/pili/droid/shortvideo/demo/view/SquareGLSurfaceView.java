@@ -22,6 +22,6 @@ public class SquareGLSurfaceView extends GLSurfaceView {
         Log.i(TAG, "specify width mode:" + MeasureSpec.toString(widthMeasureSpec) + " size:" + width);
         Log.i(TAG, "specify height mode:" + MeasureSpec.toString(heightMeasureSpec) + " size:" + height);
 
-        setMeasuredDimension(width, width);
+        setMeasuredDimension(width, height);
     }
 }

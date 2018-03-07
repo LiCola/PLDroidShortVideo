@@ -285,7 +285,7 @@ public class VideoEditActivity extends Activity implements PLVideoSaveListener {
         mWatermarkSetting = new PLWatermarkSetting();
         mWatermarkSetting.setResourceId(R.drawable.qiniu_logo);
         mWatermarkSetting.setPosition(0.01f, 0.01f);
-        mWatermarkSetting.setAlpha(128);
+        mWatermarkSetting.setAlpha(0);
     }
 
     private void initTextSelectorPanel() {
