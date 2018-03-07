@@ -13,6 +13,16 @@
   <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
   <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
 
+
+  <uses-permission android:name="android.permission.INTERNET" />
+  <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+  <uses-permission android:name="android.permission.WAKE_LOCK" />
+  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+  <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+  <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+  <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
   <application
     android:allowBackup="true"
     android:icon="@drawable/ic_launcher"
@@ -20,7 +30,7 @@
     android:name=".tusdk.TuApplication"
     android:supportsRtl="true"
     android:theme="@style/AppTheme">
-    <activity android:name=".activity.HomeActivity">
+    <activity android:name=".shoot.HomeActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
 
@@ -29,58 +39,72 @@
     </activity>
 
     <activity
-      android:name=".activity.MainActivity"
+      android:name=".shoot.MainActivity"
       android:screenOrientation="portrait" />
-    <activity android:name=".activity.VideoRecordActivity" />
+    <activity android:name=".shoot.VideoRecordActivity" />
     <activity
-      android:name=".activity.AudioRecordActivity"
-      android:screenOrientation="portrait" />
-    <activity
-      android:name=".activity.VideoTrimActivity"
+      android:name=".shoot.AudioRecordActivity"
       android:screenOrientation="portrait" />
     <activity
-      android:name=".activity.VideoEditActivity"
+      android:name=".shoot.VideoTrimActivity"
       android:screenOrientation="portrait" />
     <activity
-      android:name=".activity.VideoTranscodeActivity"
-      android:screenOrientation="portrait"
-      android:theme="@style/AppTheme" />
-    <activity
-      android:name=".activity.PlaybackActivity"
+      android:name=".shoot.VideoEditActivity"
       android:screenOrientation="portrait" />
     <activity
-      android:name=".activity.MakeGIFActivity"
+      android:name=".shoot.VideoTranscodeActivity"
       android:screenOrientation="portrait"
       android:theme="@style/AppTheme" />
     <activity
-      android:name=".activity.ScreenRecordActivity"
+      android:name=".shoot.PlaybackActivity"
+      android:screenOrientation="portrait" />
+    <activity
+      android:name=".shoot.MakeGIFActivity"
       android:screenOrientation="portrait"
       android:theme="@style/AppTheme" />
     <activity
-      android:name=".activity.ShowGIFActivity"
+      android:name=".shoot.ScreenRecordActivity"
       android:screenOrientation="portrait"
       android:theme="@style/AppTheme" />
     <activity
-      android:name=".activity.VideoComposeActivity"
+      android:name=".shoot.ShowGIFActivity"
       android:screenOrientation="portrait"
       android:theme="@style/AppTheme" />
     <activity
-      android:name=".activity.ImageComposeActivity"
+      android:name=".shoot.VideoComposeActivity"
       android:screenOrientation="portrait"
       android:theme="@style/AppTheme" />
     <activity
-      android:name=".activity.ArRecordActivity"
+      android:name=".shoot.ImageComposeActivity"
+      android:screenOrientation="portrait"
+      android:theme="@style/AppTheme" />
+    <activity
+      android:name=".shoot.ArRecordActivity"
       android:screenOrientation="portrait"
       android:theme="@style/AppThemeFullscreen" />
     <activity
-      android:name=".activity.DraftBoxActivity"
+      android:name=".shoot.DraftBoxActivity"
       android:screenOrientation="portrait"
       android:theme="@style/AppTheme" />
     <activity
-      android:name=".activity.VideoDubActivity"
+      android:name=".shoot.VideoDubActivity"
       android:screenOrientation="portrait"
       android:theme="@style/AppTheme" />
-    <activity android:name=".activity.WebViewActivity" />
+    <activity android:name=".shoot.WebViewActivity" />
+
+
+    <activity
+      android:name=".PLMediaPlayerActivity"
+      android:theme="@style/AppThemeFullscreen" />
+    <activity android:name=".PLAudioPlayerActivity" />
+    <activity
+      android:name=".PLVideoViewActivity"
+      android:theme="@style/AppThemeFullscreen" />
+    <activity
+      android:name=".PLVideoTextureActivity"
+      android:theme="@style/AppThemeFullscreen" />
+    <activity android:name=".PLVideoListActivity"/>
+
   </application>
 
 </manifest>

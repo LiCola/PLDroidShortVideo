@@ -1,4 +1,4 @@
-package com.qiniu.pili.droid.shortvideo.demo.activity.fragment;
+package com.qiniu.pili.droid.shortvideo.demo.shoot.fragment;
 
 import android.content.Context;
 import android.os.Bundle;

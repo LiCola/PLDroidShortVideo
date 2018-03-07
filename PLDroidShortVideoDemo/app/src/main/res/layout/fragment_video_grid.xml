@@ -9,5 +9,5 @@
   android:layout_marginRight="16dp"
   android:name="com.qiniu.pili.droid.shortvideo.demo.activity.VideoFragment"
   app:layoutManager="LinearLayoutManager"
-  tools:context="com.qiniu.pili.droid.shortvideo.demo.activity.fragment.VideoFragment"
+  tools:context="com.qiniu.pili.droid.shortvideo.demo.shoot.fragment.VideoFragment"
   tools:listitem="@layout/fragment_video" />

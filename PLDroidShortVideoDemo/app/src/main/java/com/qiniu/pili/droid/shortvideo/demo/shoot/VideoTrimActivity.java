@@ -1,4 +1,4 @@
-package com.qiniu.pili.droid.shortvideo.demo.activity;
+package com.qiniu.pili.droid.shortvideo.demo.shoot;
 
 import android.app.Activity;
 import android.content.DialogInterface;
@@ -37,8 +37,6 @@ import com.qiniu.pili.droid.shortvideo.demo.view.CustomProgressDialog;
 
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
-
-import static com.qiniu.pili.droid.shortvideo.PLErrorCode.ERROR_MULTI_CODEC_WRONG;
 
 public class VideoTrimActivity extends Activity {
     private static final String TAG = "VideoTrimActivity";

@@ -19,4 +19,7 @@ public class Config {
     public static final String SCREEN_RECORD_FILE_PATH = VIDEO_STORAGE_DIR + "screen_record.mp4";
     public static final String COMPOSE_FILE_PATH = VIDEO_STORAGE_DIR + "composed.mp4";
     public static final String IMAGE_COMPOSE_FILE_PATH = VIDEO_STORAGE_DIR + "image_composed.mp4";
+
+    public static final String SDCARD_DIR = Environment.getExternalStorageDirectory().getAbsolutePath();
+    public static final String DEFAULT_CACHE_DIR = SDCARD_DIR + "/PLDroidPlayer";
 }

@@ -1,4 +1,4 @@
-package com.qiniu.pili.droid.shortvideo.demo.activity;
+package com.qiniu.pili.droid.shortvideo.demo.shoot;
 
 import android.content.Intent;
 import android.os.Build;
@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import com.qiniu.pili.droid.shortvideo.demo.R;
-import com.qiniu.pili.droid.shortvideo.demo.activity.fragment.VideoFragment.OnListFragmentInteractionListener;
+import com.qiniu.pili.droid.shortvideo.demo.shoot.fragment.VideoFragment.OnListFragmentInteractionListener;
 import com.qiniu.pili.droid.shortvideo.demo.model.VideoModel;
 import com.qiniu.pili.droid.shortvideo.demo.utils.PermissionChecker;
 import com.qiniu.pili.droid.shortvideo.demo.utils.RecordSettings;

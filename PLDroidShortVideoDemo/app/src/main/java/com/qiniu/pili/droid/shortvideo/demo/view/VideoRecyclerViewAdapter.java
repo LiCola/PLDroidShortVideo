@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.qiniu.pili.droid.shortvideo.demo.R;
-import com.qiniu.pili.droid.shortvideo.demo.activity.fragment.VideoFragment.OnListFragmentInteractionListener;
+import com.qiniu.pili.droid.shortvideo.demo.shoot.fragment.VideoFragment.OnListFragmentInteractionListener;
 import com.qiniu.pili.droid.shortvideo.demo.model.VideoModel;
 import java.util.List;
 

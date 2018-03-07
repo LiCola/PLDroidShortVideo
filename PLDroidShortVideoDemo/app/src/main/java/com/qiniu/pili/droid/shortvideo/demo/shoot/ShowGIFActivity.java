@@ -1,4 +1,4 @@
-package com.qiniu.pili.droid.shortvideo.demo.activity;
+package com.qiniu.pili.droid.shortvideo.demo.shoot;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

@@ -1,4 +1,4 @@
-package com.qiniu.pili.droid.shortvideo.demo.activity;
+package com.qiniu.pili.droid.shortvideo.demo.shoot;
 
 import android.content.Intent;
 import android.os.Build;

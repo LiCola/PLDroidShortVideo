@@ -1,4 +1,4 @@
-package com.qiniu.pili.droid.shortvideo.demo.activity;
+package com.qiniu.pili.droid.shortvideo.demo.shoot;
 
 import android.app.Activity;
 import android.content.ClipData;
@@ -16,6 +16,13 @@ import android.widget.ProgressBar;
 
 import com.pili.pldroid.player.AVOptions;
 import com.pili.pldroid.player.PLMediaPlayer;
+import com.pili.pldroid.player.PLOnAudioFrameListener;
+import com.pili.pldroid.player.PLOnBufferingUpdateListener;
+import com.pili.pldroid.player.PLOnCompletionListener;
+import com.pili.pldroid.player.PLOnErrorListener;
+import com.pili.pldroid.player.PLOnInfoListener;
+import com.pili.pldroid.player.PLOnVideoFrameListener;
+import com.pili.pldroid.player.PLOnVideoSizeChangedListener;
 import com.pili.pldroid.player.widget.PLVideoTextureView;
 import com.qiniu.pili.droid.shortvideo.PLShortVideoUploader;
 import com.qiniu.pili.droid.shortvideo.PLUploadProgressListener;
@@ -27,6 +34,7 @@ import com.qiniu.pili.droid.shortvideo.demo.utils.ToastUtils;
 import com.qiniu.pili.droid.shortvideo.demo.view.MediaController;
 import com.qiniu.pili.droid.shortvideo.demo.view.MediaController.OnClickSpeedAdjustListener;
 
+import com.qiniu.qplayer.mediaEngine.MediaPlayer;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -183,30 +191,33 @@ public class PlaybackActivity extends Activity implements
         }
     };
 
-    private PLMediaPlayer.OnVideoFrameListener mOnVideoFrameListener = new PLMediaPlayer.OnVideoFrameListener() {
+
+
+    private PLOnVideoFrameListener mOnVideoFrameListener = new PLOnVideoFrameListener() {
         @Override
         public void onVideoFrameAvailable(byte[] data, int size, int width, int height, int format, long ts) {
             Log.i(TAG, "onVideoFrameAvailable: " + size + ", " + width + " x " + height + ", " + format + ", " + ts);
         }
     };
 
-    private PLMediaPlayer.OnAudioFrameListener mOnAudioFrameListener = new PLMediaPlayer.OnAudioFrameListener() {
+    private PLOnAudioFrameListener mOnAudioFrameListener = new PLOnAudioFrameListener() {
         @Override
         public void onAudioFrameAvailable(byte[] data, int size, int samplerate, int channels, int datawidth, long ts) {
             Log.i(TAG, "onAudioFrameAvailable: " + size + ", " + samplerate + ", " + channels + ", " + datawidth + ", " + ts);
         }
     };
 
-    private PLMediaPlayer.OnInfoListener mOnInfoListener = new PLMediaPlayer.OnInfoListener() {
+
+    private PLOnInfoListener mOnInfoListener = new PLOnInfoListener() {
         @Override
-        public boolean onInfo(PLMediaPlayer plMediaPlayer, int what, final int extra) {
+        public void onInfo(int what, final int extra) {
             Log.i(TAG, "OnInfo, what = " + what + ", extra = " + extra);
             switch (what) {
-                case PLMediaPlayer.MEDIA_INFO_BUFFERING_START:
+                case PLOnInfoListener.MEDIA_INFO_BUFFERING_START:
                     break;
-                case PLMediaPlayer.MEDIA_INFO_BUFFERING_END:
+                case PLOnInfoListener.MEDIA_INFO_BUFFERING_END:
                     break;
-                case PLMediaPlayer.MEDIA_INFO_VIDEO_RENDERING_START:
+                case PLOnInfoListener.MEDIA_INFO_VIDEO_RENDERING_START:
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -214,57 +225,57 @@ public class PlaybackActivity extends Activity implements
                         }
                     });
                     break;
-                case PLMediaPlayer.MEDIA_INFO_AUDIO_RENDERING_START:
+                case PLOnInfoListener.MEDIA_INFO_AUDIO_RENDERING_START:
                     break;
-                case PLMediaPlayer.MEDIA_INFO_VIDEO_FRAME_RENDERING:
+                case PLOnInfoListener.MEDIA_INFO_VIDEO_FRAME_RENDERING:
                     Log.i(TAG, "video frame rendering, ts = " + extra);
                     break;
-                case PLMediaPlayer.MEDIA_INFO_AUDIO_FRAME_RENDERING:
+                case PLOnInfoListener.MEDIA_INFO_AUDIO_FRAME_RENDERING:
                     Log.i(TAG, "audio frame rendering, ts = " + extra);
                     break;
-                case PLMediaPlayer.MEDIA_INFO_VIDEO_GOP_TIME:
+                case PLOnInfoListener.MEDIA_INFO_VIDEO_GOP_TIME:
                     Log.i(TAG, "Gop Time: " + extra);
                     break;
-                case PLMediaPlayer.MEDIA_INFO_SWITCHING_SW_DECODE:
+                case PLOnInfoListener.MEDIA_INFO_SWITCHING_SW_DECODE:
                     Log.i(TAG, "Hardware decoding failure, switching software decoding!");
                     break;
-                case PLMediaPlayer.MEDIA_INFO_METADATA:
+                case PLOnInfoListener.MEDIA_INFO_METADATA:
                     Log.i(TAG, mVideoView.getMetadata().toString());
                     break;
-                case PLMediaPlayer.MEDIA_INFO_VIDEO_BITRATE:
-                case PLMediaPlayer.MEDIA_INFO_VIDEO_FPS:
+                case PLOnInfoListener.MEDIA_INFO_VIDEO_BITRATE:
+                case PLOnInfoListener.MEDIA_INFO_VIDEO_FPS:
                     Log.i(TAG, "FPS: " + extra);
                     break;
-                case PLMediaPlayer.MEDIA_INFO_CONNECTED:
+                case PLOnInfoListener.MEDIA_INFO_CONNECTED:
                     Log.i(TAG, "Connected !");
                     break;
-                case PLMediaPlayer.MEDIA_INFO_VIDEO_ROTATION_CHANGED:
+                case PLOnInfoListener.MEDIA_INFO_VIDEO_ROTATION_CHANGED:
                     Log.i(TAG, "Rotation Changed: " + extra);
                     mVideoView.setDisplayOrientation(360 - extra);
                     break;
                 default:
                     break;
             }
-            return true;
         }
+
     };
 
-    private PLMediaPlayer.OnErrorListener mOnErrorListener = new PLMediaPlayer.OnErrorListener() {
+    private PLOnErrorListener mOnErrorListener = new PLOnErrorListener() {
         @Override
-        public boolean onError(PLMediaPlayer mp, int errorCode) {
+        public boolean onError(int errorCode) {
             Log.e(TAG, "Error happened, errorCode = " + errorCode);
             final String errorTip;
             switch (errorCode) {
-                case PLMediaPlayer.ERROR_CODE_IO_ERROR:
+                case PLOnErrorListener.ERROR_CODE_IO_ERROR:
                     /**
                      * SDK will do reconnecting automatically
                      */
                     Log.e(TAG, "IO Error!");
                     return false;
-                case PLMediaPlayer.ERROR_CODE_OPEN_FAILED:
+                case PLOnErrorListener.ERROR_CODE_OPEN_FAILED:
                     errorTip = "failed to open player !";
                     break;
-                case PLMediaPlayer.ERROR_CODE_SEEK_FAILED:
+                case PLOnErrorListener.ERROR_CODE_SEEK_FAILED:
                     errorTip = "failed to seek !";
                     break;
                 default:
@@ -283,11 +294,13 @@ public class PlaybackActivity extends Activity implements
             finish();
             return true;
         }
+
+
     };
 
-    private PLMediaPlayer.OnCompletionListener mOnCompletionListener = new PLMediaPlayer.OnCompletionListener() {
+    private PLOnCompletionListener mOnCompletionListener = new PLOnCompletionListener() {
         @Override
-        public void onCompletion(PLMediaPlayer plMediaPlayer) {
+        public void onCompletion() {
             Log.i(TAG, "Play Completed !");
             runOnUiThread(new Runnable() {
                 @Override
@@ -297,19 +310,23 @@ public class PlaybackActivity extends Activity implements
             });
             finish();
         }
+
     };
 
-    private PLMediaPlayer.OnBufferingUpdateListener mOnBufferingUpdateListener = new PLMediaPlayer.OnBufferingUpdateListener() {
+    private PLOnBufferingUpdateListener mOnBufferingUpdateListener = new PLOnBufferingUpdateListener() {
         @Override
-        public void onBufferingUpdate(PLMediaPlayer plMediaPlayer, int precent) {
+        public void onBufferingUpdate(int precent) {
             Log.i(TAG, "onBufferingUpdate: " + precent);
         }
+
     };
 
-    private PLMediaPlayer.OnVideoSizeChangedListener mOnVideoSizeChangedListener = new PLMediaPlayer.OnVideoSizeChangedListener() {
+    private PLOnVideoSizeChangedListener mOnVideoSizeChangedListener = new PLOnVideoSizeChangedListener() {
         @Override
-        public void onVideoSizeChanged(PLMediaPlayer plMediaPlayer, int width, int height) {
+        public void onVideoSizeChanged(int width, int height) {
             Log.i(TAG, "onVideoSizeChanged: width = " + width + ", height = " + height);
+
         }
+
     };
 }
