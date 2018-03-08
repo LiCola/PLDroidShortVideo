@@ -1,5 +1,7 @@
 package com.qiniu.pili.droid.shortvideo.demo.shoot;
 
+import static com.qiniu.pili.droid.shortvideo.demo.shoot.VideoRecordActivity.RECORD_FINISH_RESULT_CODE;
+
 import android.app.Activity;
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -56,7 +58,7 @@ public class PlaybackActivity extends Activity implements
     public static void start(Activity activity, String mp4Path) {
         Intent intent = new Intent(activity, PlaybackActivity.class);
         intent.putExtra(MP4_PATH, mp4Path);
-        activity.startActivity(intent);
+        activity.startActivityForResult(intent,VideoRecordActivity.RECORD_FINISH_REQUEST_CODE);
     }
 
     @Override
@@ -155,6 +157,7 @@ public class PlaybackActivity extends Activity implements
                 public void run() {
                     ToastUtils.l(PlaybackActivity.this, "文件上传成功，" + filePath + "已复制到粘贴板");
                     SourceManager.getInstance().putSource(PlaybackActivity.this,mVideoPath);
+                    setResult(RECORD_FINISH_RESULT_CODE);
                     finish();
                 }
             });

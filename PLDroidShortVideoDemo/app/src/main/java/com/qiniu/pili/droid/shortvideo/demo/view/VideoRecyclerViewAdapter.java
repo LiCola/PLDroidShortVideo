@@ -1,5 +1,6 @@
 package com.qiniu.pili.droid.shortvideo.demo.view;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
@@ -7,11 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 import com.qiniu.pili.droid.shortvideo.PLMediaFile;
+import com.qiniu.pili.droid.shortvideo.PLVideoFrame;
 import com.qiniu.pili.droid.shortvideo.demo.R;
 import com.qiniu.pili.droid.shortvideo.demo.model.VideoModel;
 import com.qiniu.pili.droid.shortvideo.demo.shoot.fragment.VideoFragment.OnListFragmentInteractionListener;
+import com.qiniu.pili.droid.shortvideo.demo.utils.PixelUtils;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.Executor;
@@ -22,14 +24,16 @@ import java.util.concurrent.Executors;
 public class VideoRecyclerViewAdapter extends
     RecyclerView.Adapter<VideoRecyclerViewAdapter.ViewHolder> {
 
+  private Context mContext;
   private List<VideoModel> mValues = Collections.EMPTY_LIST;
   private final OnListFragmentInteractionListener mListener;
   private Handler mHandler;
   private Executor executor = Executors.newCachedThreadPool();
 
 
-  public VideoRecyclerViewAdapter(
+  public VideoRecyclerViewAdapter(Context context,
       OnListFragmentInteractionListener listener) {
+    mContext = context;
     mListener = listener;
     mHandler = new Handler();
   }
@@ -50,13 +54,19 @@ public class VideoRecyclerViewAdapter extends
   public void onBindViewHolder(final ViewHolder holder, int position) {
     final VideoModel model = mValues.get(position);
     holder.mItem = model;
-    holder.txtTitle.setText(model.title);
 
     executor.execute(new Runnable() {
       @Override
       public void run() {
+        int heightPx = PixelUtils.dp2px(mContext, 160);
+        int widthPx = heightPx * 9 / 16;//录制时是 16：9
         PLMediaFile mMediaFile = new PLMediaFile(model.url);
-        final Bitmap bmp = mMediaFile.getVideoFrameByIndex(0, true, 400, 400).toBitmap();
+        PLVideoFrame videoFrameByIndex = mMediaFile
+            .getVideoFrameByIndex(0, true, widthPx, heightPx);
+        if (videoFrameByIndex == null) {
+          return;
+        }
+        final Bitmap bmp = videoFrameByIndex.toBitmap();
         mHandler.post(new Runnable() {
           @Override
           public void run() {
@@ -86,14 +96,12 @@ public class VideoRecyclerViewAdapter extends
   public class ViewHolder extends RecyclerView.ViewHolder {
 
     public final View mView;
-    public final TextView txtTitle;
     public final ImageView imgCover;
     public VideoModel mItem;
 
     public ViewHolder(View view) {
       super(view);
       mView = view;
-      txtTitle = view.findViewById(R.id.txt_title);
       imgCover = view.findViewById(R.id.img_cover);
     }
   }

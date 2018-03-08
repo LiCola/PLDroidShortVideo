@@ -66,6 +66,9 @@ public class VideoRecordActivity extends Activity implements PLRecordStateListen
     public static final String AUDIO_CHANNEL_NUM = "AudioChannelNum";
     public static final String DRAFT = "draft";
 
+    public static final int RECORD_FINISH_RESULT_CODE=100;
+    public static final int RECORD_FINISH_REQUEST_CODE=101;
+
     /**
      * NOTICE: KIWI needs extra cost
      */
@@ -452,12 +455,15 @@ public class VideoRecordActivity extends Activity implements PLRecordStateListen
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.i(TAG, "requestCode: " + requestCode+" resultCode:"+resultCode);
         if (resultCode == Activity.RESULT_OK) {
             String selectedFilepath = GetPathFromUri.getPath(this, data.getData());
             Log.i(TAG, "Select file: " + selectedFilepath);
             if (selectedFilepath != null && !"".equals(selectedFilepath)) {
                 mShortVideoRecorder.setMusicFile(selectedFilepath);
             }
+        }else if (requestCode==RECORD_FINISH_REQUEST_CODE&&resultCode==RECORD_FINISH_RESULT_CODE){
+            finish();
         }
     }
 

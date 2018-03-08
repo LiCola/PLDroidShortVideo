@@ -58,8 +58,8 @@ public class PLMediaPlayerActivity extends VideoPlayerBaseActivity {
         mVideoPath = getIntent().getStringExtra("videoPath");
         boolean isLiveStreaming = getIntent().getIntExtra("liveStreaming", 1) == 1;
 
-        Button pauseBtn = findViewById(R.id.BtnPause);
-        Button resumeBtn = findViewById(R.id.BtnResume);
+//        Button pauseBtn = findViewById(R.id.BtnPause);
+//        Button resumeBtn = findViewById(R.id.BtnResume);
 
         mLoadingView = findViewById(R.id.LoadingView);
         mSurfaceView = findViewById(R.id.SurfaceView);
@@ -71,8 +71,8 @@ public class PLMediaPlayerActivity extends VideoPlayerBaseActivity {
         mSurfaceHeight = getResources().getDisplayMetrics().heightPixels;
 
         if (isLiveStreaming) {
-            pauseBtn.setEnabled(false);
-            resumeBtn.setEnabled(false);
+//            pauseBtn.setEnabled(false);
+//            resumeBtn.setEnabled(false);
         }
 
         mAVOptions = new AVOptions();
@@ -108,6 +108,26 @@ public class PLMediaPlayerActivity extends VideoPlayerBaseActivity {
     @Override
     protected void onPause() {
         super.onPause();
+    }
+
+
+    public void onTogglePlay(final View view){
+        boolean playing = mMediaPlayer.isPlaying();
+        if (playing){
+            view.post(new Runnable() {
+                @Override
+                public void run() {
+                    onClickPause(view);
+                }
+            });
+        }else {
+            view.post(new Runnable() {
+                @Override
+                public void run() {
+                    onClickPlay(view);
+                }
+            });
+        }
     }
 
     public void onClickPlay(View v) {

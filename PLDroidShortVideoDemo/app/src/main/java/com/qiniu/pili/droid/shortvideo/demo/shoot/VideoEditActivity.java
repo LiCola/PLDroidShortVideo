@@ -66,6 +66,8 @@ import java.io.InputStream;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import static com.qiniu.pili.droid.shortvideo.demo.shoot.VideoRecordActivity.RECORD_FINISH_REQUEST_CODE;
+import static com.qiniu.pili.droid.shortvideo.demo.shoot.VideoRecordActivity.RECORD_FINISH_RESULT_CODE;
 import static com.qiniu.pili.droid.shortvideo.demo.utils.RecordSettings.RECORD_SPEED_ARRAY;
 
 public class VideoEditActivity extends Activity implements PLVideoSaveListener {
@@ -129,7 +131,7 @@ public class VideoEditActivity extends Activity implements PLVideoSaveListener {
     public static void start(Activity activity, String mp4Path) {
         Intent intent = new Intent(activity, VideoEditActivity.class);
         intent.putExtra(MP4_PATH, mp4Path);
-        activity.startActivity(intent);
+        activity.startActivityForResult(intent, RECORD_FINISH_REQUEST_CODE);
     }
 
     @Override
@@ -702,6 +704,14 @@ public class VideoEditActivity extends Activity implements PLVideoSaveListener {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.i(TAG, "requestCode: " + requestCode+" resultCode:"+resultCode);
+
+        if (requestCode==RECORD_FINISH_REQUEST_CODE&&resultCode==RECORD_FINISH_RESULT_CODE){
+            setResult(RECORD_FINISH_RESULT_CODE);
+            finish();
+            return;
+        }
+
         if (resultCode != Activity.RESULT_OK) {
             return;
         }
@@ -750,7 +760,6 @@ public class VideoEditActivity extends Activity implements PLVideoSaveListener {
     public void onSaveVideoSuccess(String filePath) {
         Log.i(TAG, "save edit success filePath: " + filePath);
         mProcessingDialog.dismiss();
-        finish();
         PlaybackActivity.start(VideoEditActivity.this, filePath);
     }
 

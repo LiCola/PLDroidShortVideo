@@ -3,7 +3,6 @@ package com.qiniu.pili.droid.shortvideo.demo.model;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.util.Log;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -47,7 +46,7 @@ public class SourceManager {
     if (newStringSplit.equals("")) {
       newStringSplit = data;
     } else {
-      newStringSplit = newStringSplit + "," + data;
+      newStringSplit = data + "," + newStringSplit;
     }
 
     Editor edit = sp.edit();
