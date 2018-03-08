@@ -272,7 +272,7 @@ public class VideoEditActivity extends Activity implements PLVideoSaveListener {
 
         PLVideoEditSetting setting = new PLVideoEditSetting();
         setting.setSourceFilepath(mMp4path);
-        setting.setDestFilepath(Config.EDITED_FILE_PATH);
+        setting.setDestFilepath(Config.VIDEO_STORAGE_DIR+System.currentTimeMillis()+".mp4");
 
         mShortVideoEditor = new PLShortVideoEditor(mPreviewView, setting);
         mShortVideoEditor.setVideoSaveListener(this);
@@ -750,6 +750,7 @@ public class VideoEditActivity extends Activity implements PLVideoSaveListener {
     public void onSaveVideoSuccess(String filePath) {
         Log.i(TAG, "save edit success filePath: " + filePath);
         mProcessingDialog.dismiss();
+        finish();
         PlaybackActivity.start(VideoEditActivity.this, filePath);
     }
 

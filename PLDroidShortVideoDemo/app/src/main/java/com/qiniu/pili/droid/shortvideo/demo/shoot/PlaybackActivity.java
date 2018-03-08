@@ -154,7 +154,7 @@ public class PlaybackActivity extends Activity implements
                 @Override
                 public void run() {
                     ToastUtils.l(PlaybackActivity.this, "文件上传成功，" + filePath + "已复制到粘贴板");
-                    SourceManager.getInstance().putSource(PlaybackActivity.this,filePath);
+                    SourceManager.getInstance().putSource(PlaybackActivity.this,mVideoPath);
                     finish();
                 }
             });

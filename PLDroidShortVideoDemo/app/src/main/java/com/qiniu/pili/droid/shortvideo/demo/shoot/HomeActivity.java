@@ -4,12 +4,13 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import com.pili.pldroid.player.AVOptions;
 import com.qiniu.pili.droid.shortvideo.demo.R;
 import com.qiniu.pili.droid.shortvideo.demo.model.VideoModel;
 import com.qiniu.pili.droid.shortvideo.demo.play.PLMediaPlayerActivity;
-import com.qiniu.pili.droid.shortvideo.demo.play.PLVideoListActivity;
 import com.qiniu.pili.droid.shortvideo.demo.shoot.fragment.VideoFragment.OnListFragmentInteractionListener;
 import com.qiniu.pili.droid.shortvideo.demo.utils.PermissionChecker;
 import com.qiniu.pili.droid.shortvideo.demo.utils.RecordSettings;
@@ -27,7 +28,7 @@ public class HomeActivity extends AppCompatActivity implements OnListFragmentInt
   public void onListFragmentInteraction(VideoModel item) {
     String videopath = item.url;
     if (!"".equals(videopath)) {
-      jumpToPlayerActivity(videopath, false);
+      jumpToPlayerActivity(videopath);
     }
   }
 
@@ -66,13 +67,7 @@ public class HomeActivity extends AppCompatActivity implements OnListFragmentInt
   }
 
 
-  public void jumpToPlayerActivity(String videoPath, boolean isList) {
-    if (isList) {
-      Intent intent = new Intent(this, PLVideoListActivity.class);
-      intent.putExtra("videoPath", videoPath);
-      startActivity(intent);
-      return;
-    }
+  public void jumpToPlayerActivity(String videoPath) {
     Intent intent = new Intent(this, PLMediaPlayerActivity.class);
     intent.putExtra("videoPath", videoPath);
 
@@ -87,5 +82,29 @@ public class HomeActivity extends AppCompatActivity implements OnListFragmentInt
     intent.putExtra("audio-data-callback", true);
     intent.putExtra("disable-log", true);
     startActivity(intent);
+  }
+
+  @Override
+  public boolean onCreateOptionsMenu(Menu menu) {
+    getMenuInflater().inflate(R.menu.menu_home, menu);
+    return true;
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+    // Handle action bar item clicks here. The action bar will
+    // automatically handle clicks on the Home/Up button, so long
+    // as you specify a parent activity in AndroidManifest.xml.
+    int id = item.getItemId();
+
+    //noinspection SimplifiableIfStatement
+    if (id == R.id.action_settings) {
+
+      startActivity(new Intent(this, MainActivity.class));
+
+      return true;
+    }
+
+    return super.onOptionsItemSelected(item);
   }
 }

@@ -1,6 +1,7 @@
 package com.qiniu.pili.droid.shortvideo.demo.shoot.fragment;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -12,6 +13,8 @@ import android.view.ViewGroup;
 import com.qiniu.pili.droid.shortvideo.demo.R;
 import com.qiniu.pili.droid.shortvideo.demo.model.SourceManager;
 import com.qiniu.pili.droid.shortvideo.demo.model.VideoModel;
+import com.qiniu.pili.droid.shortvideo.demo.utils.PermissionChecker;
+import com.qiniu.pili.droid.shortvideo.demo.utils.ToastUtils;
 import com.qiniu.pili.droid.shortvideo.demo.view.VideoRecyclerViewAdapter;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,10 +46,25 @@ public class VideoFragment extends Fragment {
 
   }
 
+  private boolean isPermissionOK() {
+    PermissionChecker checker = new PermissionChecker(getActivity());
+    boolean isPermissionOK =
+        Build.VERSION.SDK_INT < Build.VERSION_CODES.M || checker.checkPermission();
+    if (!isPermissionOK) {
+      ToastUtils.s(getContext(), "Some permissions is not approved !!!");
+    }
+    return isPermissionOK;
+  }
+
   @Override
   public void onResume() {
     super.onResume();
+    if (isPermissionOK()){
+      loadSource();
+    }
+  }
 
+  private void loadSource() {
     List<String> sourceUrl = SourceManager.getInstance().getSource(getContext());
 
     List<VideoModel> videoModels = new ArrayList<>(sourceUrl.size());
@@ -59,7 +77,6 @@ public class VideoFragment extends Fragment {
       index++;
     }
     adapter.setValues(videoModels);
-
   }
 
   @Override

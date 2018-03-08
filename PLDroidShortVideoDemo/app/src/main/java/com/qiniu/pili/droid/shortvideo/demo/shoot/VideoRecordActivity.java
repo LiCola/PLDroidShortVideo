@@ -170,7 +170,7 @@ public class VideoRecordActivity extends Activity implements PLRecordStateListen
             mRecordSetting = new PLRecordSetting();
             mRecordSetting.setMaxRecordDuration((long) (RecordSettings.DEFAULT_MAX_RECORD_DURATION * mRecordSpeed));
             mRecordSetting.setVideoCacheDir(Config.VIDEO_STORAGE_DIR);
-            mRecordSetting.setVideoFilepath(Config.RECORD_FILE_PATH);
+            mRecordSetting.setVideoFilepath(Config.VIDEO_STORAGE_DIR+System.currentTimeMillis()+".mp4");
 
             mFaceBeautySetting = new PLFaceBeautySetting(1.0f, 0.5f, 0.5f);
 
